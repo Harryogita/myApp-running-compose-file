@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+   my_database:
+       image: mysql
+       container_name: mysql_container
+       restart: always
+       environment:
+         MYSQL_ROOT_PASSWORD: test
+
+   my_App:
+       image: httpd
+       container_name: apache_container
+       depends_on:
+         - database
+       restart: always
+
+       ports:
+         - 8083:80
+       volumes:
+         - ./:/usr/local/apache2/htdocs
